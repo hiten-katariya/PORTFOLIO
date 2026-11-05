@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Hiten Katariya — Cybersecurity Enthusiast | Security Research | Full-Stack Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Kanit:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       CUSTOM PROPERTIES
+       ============================================================ */
+    :root {
+      --bg: #f2f0ec;
+      --fg: #0d0c0b;
+      --fg-soft: rgba(13,12,11,.64);
+      --fg-faint: rgba(13,12,11,.42);
+      --rule: rgba(13,12,11,.16);
+      --ease: cubic-bezier(.22,.61,.36,1);
+      --white: #ffffff;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ============================================================
+       PRELOADER
+       ============================================================ */
+    .boot {
+      position: fixed; inset: 0; z-index: 90;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      background: var(--bg);
+      transition: opacity .7s var(--ease), visibility .7s;
+    }
+    .boot.done { opacity: 0; visibility: hidden; }
+    .boot p { font-size: 12.5px; letter-spacing: .05em; color: var(--fg-faint); }
+    .bar { width: 150px; height: 1px; background: var(--rule); overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 100%; background: var(--fg); transform: scaleX(0); transform-origin: 0 50%; }
+
+    /* ============================================================
+       SCROLL METER
+       ============================================================ */
+    .meter {
+      position: fixed; top: 0; left: 0; z-index: 60;
+      height: 2px; width: 100%;
+      transform: scaleX(0); transform-origin: 0 50%;
+      background: var(--fg); opacity: .55; pointer-events: none;
+    }
+
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
+    .chrome {
+      position: fixed; left: 0; right: 0; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: max(14px, calc(env(safe-area-inset-top, 0px) + 12px)) clamp(16px, 3.4vw, 44px) 14px;
+      background: linear-gradient(to bottom, rgba(242,240,236,.94) 0%, rgba(242,240,236,.78) 72%, rgba(242,240,236,0) 100%);
+    }
+    .mark {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 15px; letter-spacing: -.012em; color: var(--fg); font-weight: 500;
+    }
+    .mark-star { opacity: .85; font-style: normal; }
+    .nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 32px); flex-shrink: 0; }
+    .nav a:not(.contact-btn) {
+      color: var(--fg); text-decoration: none; font-size: 14.5px;
+      letter-spacing: -.008em; opacity: .7; transition: opacity .3s var(--ease);
+    }
+    .nav a:not(.contact-btn):hover { opacity: 1; }
+
+    /* ============================================================
+       CONTACT BUTTON (gradient pill from Prompt 2)
+       ============================================================ */
+    .contact-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 40px; padding: 0 21px; border-radius: 999px;
+      background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+      color: #fff; font-family: 'Inter Tight', sans-serif;
+      font-size: 13px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase;
+      text-decoration: none; white-space: nowrap;
+      box-shadow: 0 4px 4px rgba(181,1,167,.25), 4px 4px 12px #7721B1 inset;
+      outline: 2px solid rgba(255,255,255,.5); outline-offset: -3px;
+      transition: transform .4s var(--ease), box-shadow .3s var(--ease);
+      -webkit-text-fill-color: #fff;
+    }
+    .contact-btn:hover { transform: translateY(-2px); }
+
+    /* ============================================================
+       HERO — scroll-scrubbed video + sliding name (Prompts 1 & 3)
+       ============================================================ */
+    .hero-track { position: relative; z-index: 1; height: 420vh; min-height: 2600px; }
+    .hero-stage {
+      position: sticky; top: 0; height: 100vh; height: 100svh;
+      overflow: hidden; background: var(--bg);
+    }
+    .hero-stage video {
+      position: absolute; top: 50%; left: 50%; width: 100%; height: 100%;
+      transform: translate(-50%,-50%) scale(1.02);
+      object-fit: cover; filter: contrast(1.02); will-change: transform;
+    }
+    .veil {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(242,240,236,.62) 0%, rgba(242,240,236,.12) 22%, rgba(242,240,236,.12) 78%, rgba(242,240,236,.66) 100%),
+        radial-gradient(100% 80% at 50% 48%, rgba(242,240,236,0) 0%, rgba(242,240,236,.34) 100%),
+        rgba(242,240,236,.20);
+    }
+    /* Fine SVG turbulence grain to prevent flat-wash banding */
+    .grain {
+      position: absolute; inset: -50%; opacity: .13; mix-blend-mode: multiply; pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.5'/></svg>");
+    }
+    .hero-glow {
+      position: absolute; left: 0; right: 0; top: 0; height: 42%;
+      background: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+
+    /* Sliding headline — two lines that cross in opposite directions */
+    .hl {
+      position: absolute; left: 0; right: 0;
+      font-family: 'Kanit', sans-serif; font-weight: 900;
+      font-size: clamp(48px, 11vw, 160px); line-height: 1;
+      letter-spacing: -.04em; white-space: nowrap; text-align: center;
+      text-transform: uppercase; will-change: transform; color: var(--fg);
+    }
+    #l1 { top: calc(50% - 1.02em); }
+    #l2 { top: calc(50% + .08em); }
+    .hero-cap {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%); width: 24em; max-width: 90vw; text-align: center;
+      font-size: clamp(10px, .85vw, 14px); font-weight: 500; line-height: 1.35;
+      letter-spacing: .04em; text-transform: uppercase; color: var(--fg-soft);
+    }
+    .hero-cross {
+      position: absolute; left: 32px; right: 32px; top: 37.5%;
+      height: 1px; background: var(--rule);
+    }
+    .hero-cross i {
+      position: absolute; left: 50%; top: -.62em; margin-left: -.3em;
+      font: 400 13px 'Inter Tight', sans-serif; color: var(--fg-faint);
+      background: var(--bg); padding: 0 .3em; line-height: 1.2; font-style: normal;
+    }
+    .hero-bottom {
+      position: absolute; left: 32px; right: 32px;
+      bottom: max(26px, calc(env(safe-area-inset-bottom, 0px) + 16px));
+      display: flex; justify-content: space-between; align-items: end;
+    }
+    .hero-bottom p { font-size: 12.5px; line-height: 1.4; color: var(--fg-faint); max-width: 20em; }
+    .hero-scroll-hint {
+      font-size: 11px; letter-spacing: .06em; color: var(--fg-faint); text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-scroll-hint::after {
+      content: ''; display: block; width: 22px; height: 1px; background: var(--fg-faint);
+    }
+
+    /* ============================================================
+       MARQUEE — scroll-offset image rows (Prompt 2)
+       ============================================================ */
+    .marquee {
+      position: relative; z-index: 2; background: var(--bg);
+      padding: clamp(60px, 8vw, 120px) 0; overflow: hidden;
+    }
+    .marquee-row { display: flex; gap: 12px; will-change: transform; }
+    .marquee-row + .marquee-row { margin-top: 12px; }
+    .marquee-tile {
+      flex-shrink: 0; width: 380px; height: 240px;
+      border-radius: 16px; overflow: hidden; background: rgba(13,12,11,.06);
+    }
+    .marquee-tile img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ============================================================
+       ABOUT — animated text reveal (Prompt 2)
+       ============================================================ */
+    .about {
+      position: relative; z-index: 2; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: clamp(80px, 12vw, 160px) clamp(20px, 5vw, 60px);
+      background: var(--bg); overflow: hidden;
+    }
+    .about-inner {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: clamp(28px, 4vw, 48px); max-width: 620px; position: relative; z-index: 2;
+    }
+    .section-title {
+      font-family: 'Kanit', sans-serif; font-weight: 900;
+      font-size: clamp(48px, 12vw, 160px); line-height: .95;
+      letter-spacing: -.03em; text-transform: uppercase; color: var(--fg);
+    }
+    .about-text {
+      font-size: clamp(16px, 2vw, 22px); line-height: 1.65;
+      color: var(--fg-soft); font-weight: 400;
+    }
+    .about-text span { transition: none; }
+    .about-cta { margin-top: clamp(12px, 2vw, 24px); }
+
+    /* Decorative corner images */
+    .decor {
+      position: absolute; pointer-events: none; opacity: .8;
+      animation: decor-float 6s ease-in-out infinite;
+    }
+    @keyframes decor-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    .decor-tl { top: 4%; left: 2%; width: clamp(80px, 12vw, 200px); }
+    .decor-tr { top: 4%; right: 2%; width: clamp(80px, 12vw, 200px); animation-delay: -1.5s; }
+    .decor-bl { bottom: 8%; left: 6%; width: clamp(70px, 10vw, 170px); animation-delay: -3s; }
+    .decor-br { bottom: 8%; right: 6%; width: clamp(90px, 12vw, 210px); animation-delay: -4.5s; }
+
+    /* ============================================================
+       SERVICES — white panel with rounded top (Prompt 2)
+       ============================================================ */
+    .services {
+      position: relative; z-index: 3; background: var(--white);
+      border-radius: 40px 40px 0 0;
+      padding: clamp(60px, 8vw, 120px) clamp(20px, 5vw, 60px);
+      margin-top: -24px;
+    }
+    .services .section-title { text-align: center; color: var(--fg); }
+    .service-list { max-width: 900px; margin: clamp(40px, 6vw, 80px) auto 0; }
+    .service-item {
+      display: flex; align-items: flex-start; gap: clamp(16px, 3vw, 40px);
+      padding: clamp(24px, 3vw, 40px) 0;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .service-item:first-child { border-top: 1px solid var(--rule); }
+    .service-item.visible { opacity: 1; transform: translateY(0); }
+    .service-num {
+      font-family: 'Kanit', sans-serif; font-weight: 900;
+      font-size: clamp(40px, 8vw, 100px); line-height: .85;
+      color: var(--fg); opacity: .10; flex-shrink: 0;
+      min-width: clamp(50px, 8vw, 110px);
+    }
+    .service-content { padding-top: clamp(4px, 1vw, 12px); }
+    .service-name {
+      font-family: 'Inter Tight', sans-serif; font-weight: 500;
+      font-size: clamp(16px, 2vw, 24px); text-transform: uppercase;
+      letter-spacing: .02em; margin-bottom: 8px;
+    }
+    .service-desc {
+      font-size: clamp(14px, 1.4vw, 18px); line-height: 1.55;
+      color: var(--fg-soft); font-weight: 300; max-width: 38em;
+    }
+
+    /* ============================================================
+       PROJECTS — stacking cards (Prompt 2)
+       ============================================================ */
+    .projects {
+      position: relative; z-index: 4; background: var(--bg);
+      border-radius: 40px 40px 0 0;
+      padding: clamp(60px, 8vw, 120px) clamp(16px, 4vw, 48px) 0;
+      margin-top: -24px;
+    }
+    .projects .section-title { text-align: center; margin-bottom: clamp(40px, 6vw, 80px); }
+    .project-wrap { height: 85vh; min-height: 520px; position: relative; }
+    .project-wrap:last-child { height: auto; min-height: 0; padding-bottom: clamp(60px, 8vw, 120px); }
+    .project-card {
+      position: sticky; top: clamp(80px, 10vh, 120px);
+      background: var(--white);
+      border: 1px solid rgba(13,12,11,.08);
+      border-radius: clamp(20px, 3vw, 40px);
+      padding: clamp(16px, 2vw, 32px);
+      box-shadow: 0 4px 40px rgba(13,12,11,.06);
+      transform-origin: top center; will-change: transform;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .project-header {
+      display: flex; align-items: center; gap: clamp(12px, 2vw, 24px);
+      margin-bottom: clamp(12px, 2vw, 24px); flex-wrap: wrap;
+    }
+    .project-num {
+      font-family: 'Kanit', sans-serif; font-weight: 900;
+      font-size: clamp(32px, 6vw, 80px); line-height: .85;
+      color: var(--fg); opacity: .10;
+    }
+    .project-meta { flex: 1; min-width: 0; }
+    .project-tag {
+      display: inline-block; font-size: 12px; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--fg-faint); margin-bottom: 4px;
+    }
+    .project-name {
+      font-family: 'Inter Tight', sans-serif; font-weight: 500;
+      font-size: clamp(16px, 2vw, 24px); letter-spacing: -.01em;
+    }
+    .live-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 38px; padding: 0 20px; border-radius: 999px;
+      border: 1.5px solid var(--fg); color: var(--fg);
+      font-size: 12px; font-weight: 500; letter-spacing: .04em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background .25s var(--ease), color .25s var(--ease);
+    }
+    .live-btn:hover { background: var(--fg); color: var(--white); }
+    .project-grid {
+      display: grid; grid-template-columns: 2fr 3fr;
+      gap: clamp(8px, 1vw, 16px);
+    }
+    .project-col-sm {
+      display: flex; flex-direction: column;
+      gap: clamp(8px, 1vw, 16px);
+    }
+    .project-col-sm img, .project-col-lg img {
+      width: 100%; object-fit: cover;
+      border-radius: clamp(12px, 2vw, 28px);
+    }
+    .project-col-sm img:first-child { height: clamp(100px, 14vw, 200px); }
+    .project-col-sm img:last-child { flex: 1; min-height: clamp(120px, 18vw, 280px); }
+    .project-col-lg img { height: 100%; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .foot {
+      position: relative; z-index: 5; background: var(--bg);
+      padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 48px) max(32px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+      border-top: 1px solid var(--rule);
+    }
+    .foot-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .foot-left { display: flex; flex-direction: column; gap: 8px; }
+    .foot-mark {
+      font-family: 'Kanit', sans-serif; font-weight: 900;
+      font-size: 28px; letter-spacing: -.02em;
+    }
+    .foot-left p { font-size: 13px; color: var(--fg-faint); letter-spacing: .01em; }
+    .foot-right { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; }
+    .foot-right p { font-size: 14px; color: var(--fg-soft); letter-spacing: .01em; }
+
+    /* Section fade-in */
+    .section-fade {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+    .section-fade.visible { opacity: 1; transform: none; }
+
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS
+       ============================================================ */
+    @media (max-width: 900px) {
+      .veil {
+        background:
+          linear-gradient(to bottom, rgba(242,240,236,.72) 0%, rgba(242,240,236,.18) 24%, rgba(242,240,236,.18) 76%, rgba(242,240,236,.74) 100%),
+          radial-gradient(100% 80% at 50% 48%, rgba(242,240,236,0) 0%, rgba(242,240,236,.40) 100%),
+          rgba(242,240,236,.24);
+      }
+    }
+    @media (max-width: 720px) {
+      .nav a:not(.contact-btn) { display: none; }
+      .mark { font-size: 14px; }
+      .nav .contact-btn { height: 38px; padding: 0 16px; font-size: 12px; }
+      .hl { font-size: clamp(36px, 13vw, 64px); }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-col-sm { flex-direction: row; }
+      .project-col-sm img:first-child { height: auto; width: 50%; }
+      .project-col-sm img:last-child { width: 50%; min-height: 120px; }
+      .hero-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .decor { display: none; }
+      .services { border-radius: 28px 28px 0 0; }
+      .projects { border-radius: 28px 28px 0 0; }
+      .foot-inner { flex-direction: column; align-items: flex-start; }
+      .foot-right { align-items: flex-start; }
+    }
+    @media (max-width: 420px) {
+      .mark-star { display: none; }
+      .nav .contact-btn { height: 36px; padding: 0 14px; font-size: 11px; }
+      .hl { font-size: clamp(32px, 14vw, 48px); }
+      .hero-cap { font-size: 9px; width: 16em; }
+      .about-text { font-size: 15px; }
+      .contact-btn { height: 38px; padding: 0 18px; font-size: 12px; }
+    }
+    @media (max-height: 520px) and (orientation: landscape) {
+      .hl { font-size: clamp(28px, 8vh, 44px); }
+      .hero-cap { font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       PRELOADER
+       ============================================================ -->
+  <div class="boot" id="boot">
+    <div class="bar"><i id="bootBar"></i></div>
+    <p id="bootPct">LOADING 0 %</p>
+  </div>
+
+  <!-- Scroll progress meter -->
+  <i class="meter" id="meter"></i>
+
+  <!-- ============================================================
+       NAVIGATION (fixed)
+       ============================================================ -->
+  <header class="chrome">
+    <div class="mark">
+      <span class="mark-star" aria-hidden="true">&#10037;</span>
+      Hiten Katariya
+    </div>
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#services">Skills</a>
+      <a href="#projects">Projects</a>
+      <a class="contact-btn" href="mailto:hiten8411jdrravi@gmail.com">Contact Me</a>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       HERO — scroll-scrubbed video + sliding "HITEN KATARIYA"
+       ============================================================ -->
+  <div class="hero-track" id="heroTrack">
+    <div class="hero-stage" id="heroStage">
+      <video id="clip" muted playsinline preload="auto" disablepictureinpicture></video>
+      <div class="veil"></div>
+      <div class="grain"></div>
+      <div class="hero-glow" id="heroGlow"></div>
+      <div class="hero-cross" id="heroCross"><i>+</i></div>
+
+      <h1 aria-label="Hiten Katariya">
+        <div class="hl" id="l1"><span>HITEN</span></div>
+        <div class="hl" id="l2"><span>KATARIYA</span></div>
+      </h1>
+      <div class="hero-cap" id="heroCap">Cybersecurity Enthusiast &middot; Full-Stack Developer</div>
+
+      <div class="hero-bottom" id="heroBottom">
+        <p>Third-year student at JIET Jodhpur.<br>Exploring cybersecurity, security research,<br>and resilient full-stack systems.</p>
+        <div class="hero-scroll-hint">SCROLL TO EXPLORE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MARQUEE — scroll-offset image rows
+       ============================================================ -->
+  <section class="marquee" id="marquee">
+    <div class="marquee-row" id="mrow1"></div>
+    <div class="marquee-row" id="mrow2"></div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT — character-by-character text reveal
+       ============================================================ -->
+  <section class="about" id="about">
+    <!-- Decorative 3D corner images -->
+    <img class="decor decor-tl" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png" alt="" loading="lazy">
+    <img class="decor decor-tr" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png" alt="" loading="lazy">
+    <img class="decor decor-bl" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png" alt="" loading="lazy">
+    <img class="decor decor-br" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png" alt="" loading="lazy">
+
+    <div class="about-inner">
+      <h2 class="section-title section-fade">About Me</h2>
+      <p class="about-text" id="aboutText">I am a third-year engineering student at JIET Jodhpur exploring the intersection of cybersecurity and software engineering. I focus on developing practical solutions across security research, full-stack development, networking, and blockchain technologies. Driven by curiosity and rigorous problem-solving, I continually refine my skills through hands-on projects, technical competitions, and collaborative engineering initiatives.</p>
+      
+      <div class="about-highlights section-fade" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:18px; width:100%; text-align:left; margin-top:16px; padding:22px; background:rgba(13,12,11,.03); border:1px solid var(--rule); border-radius:18px;">
+        <div>
+          <h4 style="font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--fg-faint); margin-bottom:6px; font-weight:500;">Involvement &amp; Leadership</h4>
+          <p style="font-size:13.5px; line-height:1.5; color:var(--fg-soft);">TechnoLancers Club at JIET &bull; Technical event organization &amp; coordination &bull; College technology initiatives &bull; Team collaboration</p>
+        </div>
+        <div>
+          <h4 style="font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--fg-faint); margin-bottom:6px; font-weight:500;">Competitions &amp; Activities</h4>
+          <p style="font-size:13.5px; line-height:1.5; color:var(--fg-soft);">BSides Jaipur CTF (3rd Place &ndash; Event Pending Confirmation) &bull; Hackathons &amp; coding competition participation</p>
+        </div>
+        <div style="grid-column:1/-1;">
+          <h4 style="font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--fg-faint); margin-bottom:6px; font-weight:500;">Core Strengths</h4>
+          <p style="font-size:13.5px; line-height:1.5; color:var(--fg-soft);">Leadership &bull; Teamwork &bull; Problem-solving &bull; Communication &bull; Analytical Thinking &bull; Adaptability</p>
+        </div>
+      </div>
+
+      <div class="about-cta section-fade">
+        <a class="contact-btn" href="#contact">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SERVICES / TECHNICAL SKILLS — white panel, numbered items
+       ============================================================ -->
+  <section class="services" id="services">
+    <h2 class="section-title section-fade">Technical Skills</h2>
+    <div class="service-list">
+      <div class="service-item">
+        <span class="service-num">01</span>
+        <div class="service-content">
+          <h3 class="service-name">Cybersecurity &amp; Ethical Hacking</h3>
+          <p class="service-desc"><strong>Proficiency: Intermediate.</strong> Hands-on focus on network security, threat detection, vulnerability analysis, and Capture The Flag (CTF) challenges. Experienced with passive traffic analysis and threat intelligence using Zeek.</p>
+          <p style="font-size:12.5px; color:var(--fg-faint); margin-top:6px; letter-spacing:.02em;">SKILLS: Network Security &middot; CTF &middot; Ethical Hacking &middot; Zeek</p>
+        </div>
+      </div>
+      <div class="service-item">
+        <span class="service-num">02</span>
+        <div class="service-content">
+          <h3 class="service-name">Full-Stack Development</h3>
+          <p class="service-desc"><strong>Proficiency: Intermediate.</strong> Building scalable, responsive web applications and secure client-server architectures with modern authentication and clean API integration.</p>
+          <p style="font-size:12.5px; color:var(--fg-faint); margin-top:6px; letter-spacing:.02em;">SKILLS: React &middot; Next.js &middot; Node.js &middot; Express.js &middot; FastAPI &middot; HTML &middot; CSS &middot; Tailwind CSS &middot; REST APIs &middot; Authentication &middot; OAuth</p>
+        </div>
+      </div>
+      <div class="service-item">
+        <span class="service-num">03</span>
+        <div class="service-content">
+          <h3 class="service-name">Databases &amp; Backend Infrastructure</h3>
+          <p class="service-desc"><strong>Proficiency: Intermediate.</strong> Designing schema models, database queries, and distributed message streaming pipelines with containerized environments and Linux system administration.</p>
+          <p style="font-size:12.5px; color:var(--fg-faint); margin-top:6px; letter-spacing:.02em;">SKILLS: MongoDB &middot; PostgreSQL &middot; Supabase &middot; Firebase &middot; TimescaleDB &middot; Linux &middot; Docker &middot; Kafka</p>
+        </div>
+      </div>
+      <div class="service-item">
+        <span class="service-num">04</span>
+        <div class="service-content">
+          <h3 class="service-name">Programming Languages</h3>
+          <p class="service-desc"><strong>Proficiency: Intermediate.</strong> Core software development, scripting, data manipulation, and backend engineering across multiple programming paradigms.</p>
+          <p style="font-size:12.5px; color:var(--fg-faint); margin-top:6px; letter-spacing:.02em;">LANGUAGES: Python &middot; Cython &middot; Java &middot; JavaScript &middot; TypeScript &middot; SQL</p>
+        </div>
+      </div>
+      <div class="service-item">
+        <span class="service-num">05</span>
+        <div class="service-content">
+          <h3 class="service-name">Blockchain &amp; AI / Computer Vision</h3>
+          <p class="service-desc"><strong>Proficiency: Intermediate (Blockchain) &middot; Beginner (AI/ML).</strong> Exploring decentralized smart contract execution on Ethereum, paired with foundational machine learning, computer vision models, and data processing workflows.</p>
+          <p style="font-size:12.5px; color:var(--fg-faint); margin-top:6px; letter-spacing:.02em;">TECHNOLOGIES: Ethereum &middot; Smart Contracts &middot; Web3 &middot; Computer Vision &middot; Pandas &middot; scikit-learn</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS — sticky stacking cards
+       ============================================================ -->
+  <section class="projects" id="projects">
+    <h2 class="section-title section-fade">Featured Projects</h2>
+
+    <!-- Project 1: CyberWatch -->
+    <div class="project-wrap">
+      <div class="project-card" data-project>
+        <div class="project-header">
+          <span class="project-num">01</span>
+          <div class="project-meta">
+            <span class="project-tag">Cybersecurity &bull; Threat Intelligence</span>
+            <h3 class="project-name">CyberWatch</h3>
+            <p style="font-size:13.5px; color:var(--fg-soft); margin-top:6px; line-height:1.5; max-width:680px;">
+              <strong>Passive One-Way Network Threat Detection &amp; Intelligence:</strong> Designed for passive network threat detection without active intrusion. Ingests packet telemetry, applies machine learning for Domain Generation Algorithm (DGA) detection, and visualizes security metrics in real time.<br>
+              <span style="font-size:12px; color:var(--fg-faint); display:inline-block; margin-top:4px;"><strong>Architecture:</strong> Zeek &rarr; Kafka &rarr; Feature Extraction &rarr; Detection &rarr; TimescaleDB &rarr; API &rarr; Dashboard</span>
+            </p>
+          </div>
+          <a href="https://github.com/hiten-katariya/CyberWatch" target="_blank" rel="noopener" class="live-btn">GitHub</a>
+        </div>
+        <div class="project-grid">
+          <div class="project-col-sm">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85" alt="CyberWatch interface preview" loading="lazy">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png&w=1280&q=85" alt="CyberWatch telemetry dashboard" loading="lazy">
+          </div>
+          <div class="project-col-lg">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png&w=1280&q=85" alt="CyberWatch system monitoring view" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2: MailTrace -->
+    <div class="project-wrap">
+      <div class="project-card" data-project>
+        <div class="project-header">
+          <span class="project-num">02</span>
+          <div class="project-meta">
+            <span class="project-tag">Cybersecurity &bull; Email Forensics &bull; SOC Station</span>
+            <h3 class="project-name">MailTrace</h3>
+            <p style="font-size:13.5px; color:var(--fg-soft); margin-top:6px; line-height:1.5; max-width:680px;">
+              <strong>Enterprise Multi-Signal Email Forensic &amp; Anti-Phishing Station:</strong> An explainable email forensics and incident response platform for SOC analysts. Evaluates cryptographic protocols (SPF/DKIM/DMARC), chronological relay hops, NLP deception, image forensics/Quishing (QR &amp; OCR), origin geolocation, and interactive d3-force campaign correlation graphs.<br>
+              <span style="font-size:12px; color:var(--fg-faint); display:inline-block; margin-top:4px;"><strong>Technologies:</strong> Python &bull; FastAPI &bull; React &bull; TypeScript &bull; PostgreSQL &bull; Tailwind CSS &bull; OpenCV &bull; PyZbar &bull; D3-force &bull; Docker</span>
+            </p>
+          </div>
+          <a href="https://github.com/hiten-katariya/MailTrace" target="_blank" rel="noopener" class="live-btn">GitHub</a>
+        </div>
+        <div class="project-grid">
+          <div class="project-col-sm">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f.png&w=1280&q=85" alt="MailTrace SOC station interface preview" loading="lazy">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1.png&w=1280&q=85" alt="MailTrace forensic ledger and multi-signal scoring" loading="lazy">
+          </div>
+          <div class="project-col-lg">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea.png&w=1280&q=85" alt="MailTrace force-directed campaign cluster graph" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3: NiyamSetu -->
+    <div class="project-wrap">
+      <div class="project-card" data-project>
+        <div class="project-header">
+          <span class="project-num">03</span>
+          <div class="project-meta">
+            <span class="project-tag">Workflow Automation &bull; Compliance</span>
+            <h3 class="project-name">NiyamSetu</h3>
+            <p style="font-size:13.5px; color:var(--fg-soft); margin-top:6px; line-height:1.5; max-width:680px;">
+              <strong>Approval Workflow &amp; Compliance Management Platform:</strong> Designed to automate and monitor complex institutional application lifecycles. Features stage-wise pendency tracking, document validity date monitoring, compliance verification, automated notifications, escalations, and full audit trails.<br>
+              <span style="font-size:12px; color:var(--fg-faint); display:inline-block; margin-top:4px;"><strong>Technologies:</strong> Full-Stack Architecture &bull; Document Tracking &bull; Escalation &bull; Audit Trails (Academic Project)</span>
+            </p>
+          </div>
+          <a href="https://github.com/hiten-katariya/NiyamSetu" target="_blank" rel="noopener" class="live-btn">GitHub</a>
+        </div>
+        <div class="project-grid">
+          <div class="project-col-sm">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png&w=1280&q=85" alt="NiyamSetu workflow monitor" loading="lazy">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png&w=1280&q=85" alt="NiyamSetu compliance checklist" loading="lazy">
+          </div>
+          <div class="project-col-lg">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85" alt="NiyamSetu audit log dashboard" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4: AI Traffic Management System -->
+    <div class="project-wrap">
+      <div class="project-card" data-project>
+        <div class="project-header">
+          <span class="project-num">04</span>
+          <div class="project-meta">
+            <span class="project-tag">AI &bull; Computer Vision &bull; Smart Mobility</span>
+            <h3 class="project-name">AI Traffic Management System</h3>
+            <p style="font-size:13.5px; color:var(--fg-soft); margin-top:6px; line-height:1.5; max-width:680px;">
+              <strong>Dynamic Traffic Signal Control System:</strong> An AI-driven system designed to dynamically control traffic signals based on real-time vehicle density, reducing unnecessary wait times and idle emissions at intersections. Applies computer vision models for vehicle detection and on-the-fly signal adjustments.<br>
+              <span style="font-size:12px; color:var(--fg-faint); display:inline-block; margin-top:4px;"><strong>Technologies:</strong> Python &bull; Computer Vision &bull; Cython &bull; Real-Time Video/Sensor Processing</span>
+            </p>
+          </div>
+          <a href="https://github.com/hiten-katariya/AI-TRAFFIC-MANAGEMENT-SYSTEM" target="_blank" rel="noopener" class="live-btn">GitHub</a>
+        </div>
+        <div class="project-grid">
+          <div class="project-col-sm">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85" alt="AI Traffic Management real-time detection preview" loading="lazy">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1.png&w=1280&q=85" alt="Traffic intersection signal monitoring" loading="lazy">
+          </div>
+          <div class="project-col-lg">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f.png&w=1280&q=85" alt="AI traffic optimization analytics dashboard" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 5: BlockGrain -->
+    <div class="project-wrap">
+      <div class="project-card" data-project>
+        <div class="project-header">
+          <span class="project-num">05</span>
+          <div class="project-meta">
+            <span class="project-tag">Blockchain &bull; Supply Chain Provenance</span>
+            <h3 class="project-name">BlockGrain</h3>
+            <p style="font-size:13.5px; color:var(--fg-soft); margin-top:6px; line-height:1.5; max-width:680px;">
+              <strong>Blockchain-Based Supply-Chain Management System:</strong> An exploratory decentralized supply-chain platform investigating the application of blockchain technology for verifiable, tamper-resistant tracking of goods and transactions across supply-chain stakeholders using Ethereum smart contracts.<br>
+              <span style="font-size:12px; color:var(--fg-faint); display:inline-block; margin-top:4px;"><strong>Technologies:</strong> Ethereum &bull; Smart Contracts &bull; Web3 Architecture &bull; Cryptographic Provenance</span>
+            </p>
+          </div>
+          <a href="https://github.com/hiten-katariya/BLOCKGRAINN" target="_blank" rel="noopener" class="live-btn">GitHub</a>
+        </div>
+        <div class="project-grid">
+          <div class="project-col-sm">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png&w=1280&q=85" alt="BlockGrain smart contract interface" loading="lazy">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png&w=1280&q=85" alt="BlockGrain transaction ledger" loading="lazy">
+          </div>
+          <div class="project-col-lg">
+            <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png&w=1280&q=85" alt="BlockGrain decentralized tracking view" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER & CONTACT
+       ============================================================ -->
+  <footer class="foot" id="contact">
+    <div class="foot-inner">
+      <div class="foot-left">
+        <div class="foot-mark">HK</div>
+        <p style="font-size:15px; font-weight:500; color:var(--fg); margin-top:2px;">Hiten Katariya</p>
+        <p style="font-size:13px; color:var(--fg-soft); margin-top:2px;">Third-year Student &middot; JIET (Jodhpur Institute of Engineering and Technology), Jodhpur</p>
+        <p style="font-size:12.5px; color:var(--fg-faint); margin-top:2px;">Cybersecurity Enthusiast &middot; Security Research &middot; Full-Stack Development</p>
+        <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:14px; font-size:13px;">
+          <a href="https://github.com/hiten-katariya" target="_blank" rel="noopener" style="text-decoration:underline; opacity:.85;">GitHub</a>
+          <a href="https://www.linkedin.com/in/hiten-katariya-581b17289/" target="_blank" rel="noopener" style="text-decoration:underline; opacity:.85;">LinkedIn</a>
+          <a href="mailto:hiten8411jdrravi@gmail.com" style="text-decoration:underline; opacity:.85;">Email</a>
+          <span style="color:var(--fg-faint);">R&eacute;sum&eacute;: PDF available upon request</span>
+        </div>
+      </div>
+      <div class="foot-right">
+        <p style="font-size:14px; color:var(--fg-soft);">Open for cybersecurity &amp; software development internships</p>
+        <a class="contact-btn" href="mailto:hiten8411jdrravi@gmail.com">Contact Me</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT — single IIFE, no dependencies
+       ============================================================ -->
+  <script>
+  (function(){ "use strict";
+
+    /* ---- Helpers ---- */
+    function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
+    function smooth(t) { return t * t * (3 - 2 * t); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    /* ---- DOM refs ---- */
+    var clip       = document.getElementById("clip");
+    var boot       = document.getElementById("boot");
+    var bootBar    = document.getElementById("bootBar");
+    var bootPct    = document.getElementById("bootPct");
+    var meter      = document.getElementById("meter");
+    var heroTrack  = document.getElementById("heroTrack");
+    var l1         = document.getElementById("l1");
+    var l2         = document.getElementById("l2");
+    var heroCap    = document.getElementById("heroCap");
+    var heroCross  = document.getElementById("heroCross");
+    var heroGlow   = document.getElementById("heroGlow");
+    var heroBottom = document.getElementById("heroBottom");
+    var mrow1      = document.getElementById("mrow1");
+    var mrow2      = document.getElementById("mrow2");
+    var aboutTextEl= document.getElementById("aboutText");
+    var marqueeEl  = document.getElementById("marquee");
+
+    /* ========================================================
+       VIDEO — all-intra keyframe encoding: every frame is a
+       keyframe, so seeking to an exact frame is instant. This
+       is what makes scroll scrubbing work smoothly.
+       ======================================================== */
+    var VIDEO_URL = "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/45567745-d826-44a2-a5ce-7ef670944e60.mp4";
+    var duration = 0, ready = false, seekTo = 0, seekAt = 0;
+    var started = false, attached = false;
+
+    /* ---- Scroll state ---- */
+    var pageScrollY = 0, scrollMax = 1, progress = 0, heroProgress = 0;
+
+    function readScroll() {
+      pageScrollY = window.pageYOffset || 0;
+      scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+      progress = scrollMax > 0 ? clamp(pageScrollY / scrollMax, 0, 1) : 0;
+
+      /* Hero progress: 0–1 across the hero track only */
+      var heroH = heroTrack.offsetHeight - window.innerHeight;
+      heroProgress = heroH > 0 ? clamp(pageScrollY / heroH, 0, 1) : 0;
+
+      if (duration) seekTo = clamp(heroProgress, 0, 1) * duration;
+    }
+
+    /* ========================================================
+       MARQUEE — build rows from GIF URLs (Prompt 2)
+       ======================================================== */
+    var GIFS_R1 = [
+      "https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif",
+      "https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif",
+      "https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif",
+      "https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif",
+      "https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif",
+      "https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif",
+      "https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif",
+      "https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif",
+      "https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif",
+      "https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif",
+      "https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif"
+    ];
+    var GIFS_R2 = [
+      "https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif",
+      "https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif",
+      "https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif",
+      "https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif",
+      "https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif",
+      "https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif",
+      "https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif",
+      "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif",
+      "https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif",
+      "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif"
+    ];
+
+    /* Triple each row for seamless infinite scroll */
+    function buildMarquee(container, gifs) {
+      var html = "";
+      for (var r = 0; r < 3; r++) {
+        for (var i = 0; i < gifs.length; i++) {
+          html += '<div class="marquee-tile"><img src="' + gifs[i] + '" alt="" loading="lazy"></div>';
+        }
+      }
+      container.innerHTML = html;
+    }
+    buildMarquee(mrow1, GIFS_R1);
+    buildMarquee(mrow2, GIFS_R2);
+
+    /* ========================================================
+       ABOUT — split text into per-character spans for
+       scroll-driven opacity animation (Prompt 2 style)
+       ======================================================== */
+    var aboutStr = aboutTextEl.textContent;
+    aboutTextEl.innerHTML = "";
+    var chars = [];
+    for (var ci = 0; ci < aboutStr.length; ci++) {
+      var sp = document.createElement("span");
+      sp.textContent = aboutStr[ci];
+      sp.style.opacity = "0.15";
+      sp.style.display = "inline";
+      aboutTextEl.appendChild(sp);
+      chars.push(sp);
+    }
+
+    /* ========================================================
+       SERVICE ITEMS — fade in with IntersectionObserver
+       ======================================================== */
+    var serviceItems = document.querySelectorAll(".service-item");
+    if ("IntersectionObserver" in window) {
+      var sio = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            /* Stagger based on DOM order */
+            var idx = [].indexOf.call(serviceItems, entry.target);
+            setTimeout(function() {
+              entry.target.classList.add("visible");
+            }, idx * 100);
+            sio.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      serviceItems.forEach(function(el) { sio.observe(el); });
+    } else {
+      serviceItems.forEach(function(el) { el.classList.add("visible"); });
+    }
+
+    /* ========================================================
+       SECTION FADE — generic observer for .section-fade elements
+       ======================================================== */
+    var fadeSections = document.querySelectorAll(".section-fade");
+    if ("IntersectionObserver" in window) {
+      var fio = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            fio.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+      fadeSections.forEach(function(el) { fio.observe(el); });
+    } else {
+      fadeSections.forEach(function(el) { el.classList.add("visible"); });
+    }
+
+    /* ---- Project cards ---- */
+    var projectCards = [].slice.call(document.querySelectorAll("[data-project]"));
+    var totalCards = projectCards.length;
+
+    /* ========================================================
+       PAINT — called every rAF frame
+       ======================================================== */
+
+    /* Hero: sliding text + video + decorative fades */
+    function paintHero() {
+      var p = heroProgress;
+
+      /*
+       * "HITEN" slides left→right, "KATARIYA" slides right→left.
+       * They cross in the centre around heroProgress ≈ 0.24,
+       * creating a moment where you read the full name.
+       */
+      var textProgress = smooth(clamp(p / 0.7, 0, 1));
+      var run = lerp(-35, 75, textProgress);
+      l1.style.transform = "translate3d(" + run + "vw, 0, 0)";
+      l2.style.transform = "translate3d(" + (-run) + "vw, 0, 0)";
+
+      /* Caption fades in then out */
+      var capIn  = smooth(clamp(p / 0.12, 0, 1));
+      var capOut = 1 - smooth(clamp((p - 0.4) / 0.12, 0, 1));
+      heroCap.style.opacity = capIn * capOut;
+
+      /* Decorative cross and glow fade out early */
+      var introFade = 1 - smooth(clamp(p / 0.06, 0, 1));
+      heroCross.style.opacity = introFade;
+      heroGlow.style.opacity  = introFade;
+
+      /* Bottom bar fades out as you start scrolling */
+      heroBottom.style.opacity = 1 - smooth(clamp(p / 0.12, 0, 1));
+    }
+
+    /* Marquee: offset rows based on section scroll position */
+    function paintMarquee() {
+      var rect = marqueeEl.getBoundingClientRect();
+      if (rect.top > window.innerHeight || rect.bottom < 0) return;
+      var offset = (window.innerHeight - rect.top) * 0.3;
+      mrow1.style.transform = "translate3d(" + (offset - 200) + "px, 0, 0)";
+      mrow2.style.transform = "translate3d(" + (-(offset - 200)) + "px, 0, 0)";
+    }
+
+    /*
+     * About: character-by-character opacity based on scroll.
+     * Each character animates from 0.15 to 1 as the scroll
+     * "cursor" passes over it (Prompt 2's AnimatedText effect).
+     */
+    function paintAbout() {
+      var rect = aboutTextEl.getBoundingClientRect();
+      var vh   = window.innerHeight;
+      /* Start when element top reaches 80% of viewport,
+         end when element bottom reaches 20% of viewport */
+      var startY = vh * 0.8;
+      var endY   = vh * 0.2;
+      var range  = startY - endY + rect.height;
+      var p = range > 0 ? clamp((startY - rect.top) / range, 0, 1) : 0;
+
+      var len = chars.length;
+      for (var i = 0; i < len; i++) {
+        var charP = i / len;
+        var o = clamp((p - charP) * len * 0.06, 0, 1);
+        chars[i].style.opacity = lerp(0.15, 1, o);
+      }
+    }
+
+    /*
+     * Projects: scale-down stacking effect.
+     * As you scroll past each card wrapper, the card scales
+     * down slightly so the next card appears to stack on top.
+     */
+    function paintProjects() {
+      for (var i = 0; i < totalCards; i++) {
+        var wrap = projectCards[i].parentElement;
+        var rect = wrap.getBoundingClientRect();
+        var scrollRange = wrap.offsetHeight - window.innerHeight;
+        var p = scrollRange > 0 ? clamp(-rect.top / scrollRange, 0, 1) : 0;
+        var targetScale = 1 - (totalCards - 1 - i) * 0.03;
+        var scale = lerp(1, targetScale, p);
+        projectCards[i].style.transform = "scale(" + scale + ")";
+      }
+    }
+
+    /* ========================================================
+       rAF LOOP — drives everything
+       ======================================================== */
+    function frame() {
+      /* Eased video seek — smooths the scroll scrub so it
+         doesn't jump frame to frame but glides instead */
+      if (ready && duration) {
+        var gap = seekTo - seekAt;
+        if (Math.abs(gap) > 0.0008) {
+          seekAt += gap * 0.115;
+          if (clip.readyState >= 2 && !clip.seeking) {
+            try { clip.currentTime = seekAt; } catch (e) {}
+          }
+        }
+      }
+
+      meter.style.transform = "scaleX(" + progress + ")";
+      paintHero();
+      paintMarquee();
+      paintAbout();
+      paintProjects();
+      requestAnimationFrame(frame);
+    }
+
+    /* ========================================================
+       PRELOADER
+       ======================================================== */
+    function setProgress(f) {
+      bootBar.style.transform = "scaleX(" + f + ")";
+      bootPct.textContent = "LOADING " + Math.round(f * 100) + " %";
+    }
+
+    function start() {
+      if (started) return;
+      started = true;
+      ready = true;
+      boot.classList.add("done");
+      readScroll();
+      seekAt = seekTo;
+    }
+
+    function attach(src) {
+      if (attached) return;
+      attached = true;
+      /* Bind listeners BEFORE setting src */
+      clip.addEventListener("loadedmetadata", function() {
+        duration = clip.duration || 0;
+        clip.pause();
+        readScroll();
+        seekAt = seekTo;
+        try { clip.currentTime = seekAt; } catch (e) {}
+      });
+      clip.addEventListener("loadeddata", start);
+      clip.addEventListener("canplaythrough", start);
+      clip.addEventListener("error", start);
+      clip.src = src;
+      clip.load();
+      /* Safety net: never strand the page behind the preloader */
+      setTimeout(start, 12000);
+    }
+
+    /*
+     * Fetch the mp4 as a fully buffered blob first, because seeking
+     * inside a buffered blob is near-instant while range requests
+     * over the network produce a slideshow.
+     */
+    function preload() {
+      var controller = window.AbortController ? new AbortController() : null;
+      var signal = controller ? controller.signal : undefined;
+
+      /* Bail timer: if the fetch stalls, fall back to streaming */
+      var bail = setTimeout(function() {
+        if (!attached) {
+          if (controller) controller.abort();
+          setProgress(1);
+          attach(VIDEO_URL);
+        }
+      }, 15000);
+
+      fetch(VIDEO_URL, { signal: signal })
+        .then(function(res) {
+          if (!res.ok || !res.body) throw new Error("no body");
+          var total = parseInt(res.headers.get("content-length") || "0", 10);
+          var reader = res.body.getReader();
+          var chunks = [], got = 0;
+
+          function pump() {
+            return reader.read().then(function(r) {
+              if (r.done) return new Blob(chunks, { type: "video/mp4" });
+              chunks.push(r.value);
+              got += r.value.length;
+              /* 11e6 is the approximate byte size — used as fallback when
+                 the server sends no content-length header */
+              setProgress(total ? got / total : Math.min(got / 11e6, 0.95));
+              return pump();
+            });
+          }
+          return pump();
+        })
+        .then(function(blob) {
+          clearTimeout(bail);
+          setProgress(1);
+          attach(URL.createObjectURL(blob));
+        })
+        .catch(function() {
+          /* Covers CORS failure, abort, and offline */
+          clearTimeout(bail);
+          setProgress(1);
+          attach(VIDEO_URL);
+        });
+    }
+
+    /* ========================================================
+       iOS UNLOCK — iOS won't paint a video frame until the
+       video has been played at least once. We nudge it on the
+       first user interaction and immediately pause.
+       ======================================================== */
+    function unlock() {
+      var p = clip.play();
+      if (p && p.then) p.then(function() { clip.pause(); }).catch(function() {});
+      else clip.pause();
+    }
+    ["touchstart", "pointerdown", "wheel", "keydown"].forEach(function(ev) {
+      window.addEventListener(ev, unlock, { once: true, passive: true });
+    });
+
+    /* ========================================================
+       WIRING — in this order
+       ======================================================== */
+    window.addEventListener("scroll", readScroll, { passive: true });
+    window.addEventListener("resize", readScroll);
+
+    readScroll();
+    preload();
+    requestAnimationFrame(frame);
+
+  })();
+  </script>
+</body>
+</html>
