@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0c14"/>
+      <stop offset="100%" stop-color="#040508"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(22, 26, 40, 0.92)"/>
+      <stop offset="100%" stop-color="rgba(12, 14, 24, 0.98)"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="glowBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="50"/>
+    </filter>
+  </defs>
+
+  <!-- Deep Obsidian Canvas Background -->
+  <rect width="1000" height="720" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Ambient Glow Orbs -->
+  <circle cx="160" cy="140" r="130" fill="#6366f1" opacity="0.15" filter="url(#glowBlur)"/>
+  <circle cx="860" cy="520" r="160" fill="#06b6d4" opacity="0.12" filter="url(#glowBlur)"/>
+
+  <!-- Top App Navigation Bar (x: 36, width: 928) -->
+  <rect x="36" y="24" width="928" height="58" rx="12" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <circle cx="66" cy="53" r="13" fill="url(#accentGrad)"/>
+  <text x="66" y="58" fill="#ffffff" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="12" text-anchor="middle">BG</text>
+  <text x="92" y="58" fill="#ffffff" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="15" letter-spacing="-0.02em">BLOCKGRAIN PROTOCOL</text>
+  <text x="274" y="57" fill="#818cf8" font-family="'IBM Plex Mono', monospace" font-size="10.5" letter-spacing="0.04em">ETHEREUM MAINNET</text>
+  
+  <rect x="400" y="41" width="160" height="24" rx="12" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.3)"/>
+  <text x="480" y="57" fill="#a5b4fc" font-family="'IBM Plex Mono', monospace" font-size="10" text-anchor="middle">CONTRACT: 0x7F9a...4B2c</text>
+  
+  <rect x="818" y="40" width="132" height="26" rx="13" fill="rgba(16,185,129,0.15)" stroke="rgba(16,185,129,0.3)"/>
+  <circle cx="832" cy="53" r="3.5" fill="#10b981"/>
+  <text x="842" y="57" fill="#34d399" font-family="'Inter Tight', sans-serif" font-weight="600" font-size="10.5">CONSENSUS ACTIVE</text>
+
+  <!-- Metric Badges Row (y: 96, height: 76) -->
+  <g transform="translate(36, 96)">
+    <!-- Metric 1 -->
+    <rect x="0" y="0" width="220" height="76" rx="10" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="16" y="28" fill="#94a3b8" font-family="'Inter Tight', sans-serif" font-size="10" font-weight="500">TOTAL VERIFIED SHIPMENTS</text>
+    <text x="16" y="57" fill="#ffffff" font-family="'Inter Tight', sans-serif" font-size="21" font-weight="800">14,892 <tspan fill="#34d399" font-size="11" font-weight="500">+12%</tspan></text>
+
+    <!-- Metric 2 -->
+    <rect x="236" y="0" width="220" height="76" rx="10" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="16" y="28" fill="#94a3b8" font-family="'Inter Tight', sans-serif" font-size="10" font-weight="500">IMMUTABLE MERKLE ROOTS</text>
+    <text x="16" y="57" fill="#ffffff" font-family="'Inter Tight', sans-serif" font-size="21" font-weight="800">4,120 <tspan fill="#818cf8" font-size="11" font-weight="500">EVM</tspan></text>
+
+    <!-- Metric 3 -->
+    <rect x="472" y="0" width="220" height="76" rx="10" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="16" y="28" fill="#94a3b8" font-family="'Inter Tight', sans-serif" font-size="10" font-weight="500">ACTIVE P2P VALIDATORS</text>
+    <text x="16" y="57" fill="#ffffff" font-family="'Inter Tight', sans-serif" font-size="21" font-weight="800">48 Nodes <tspan fill="#38bdf8" font-size="11" font-weight="500">100%</tspan></text>
+
+    <!-- Metric 4 -->
+    <rect x="708" y="0" width="220" height="76" rx="10" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="16" y="28" fill="#94a3b8" font-family="'Inter Tight', sans-serif" font-size="10" font-weight="500">TAMPER INCIDENTS</text>
+    <text x="16" y="57" fill="#34d399" font-family="'Inter Tight', sans-serif" font-size="21" font-weight="800">0 Alerts <tspan fill="#94a3b8" font-size="11" font-weight="400">Zero Spoof</tspan></text>
+  </g>
+
+  <!-- Left Main Panel: Provenance Lifecycle Ledger (x: 36, y: 186, width: 560, height: 508) -->
+  <rect x="36" y="186" width="560" height="508" rx="14" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.07)"/>
+  <text x="56" y="222" fill="#ffffff" font-family="'Inter Tight', sans-serif" font-size="16" font-weight="700">Batch Grain Provenance Ledger</text>
+  <text x="56" y="242" fill="#64748b" font-family="'IBM Plex Mono', monospace" font-size="10.5">BATCH: #BG-2026-9041 &#8226; COMMODITY: DURUM WHEAT &#8226; 42.5 MT</text>
+
+  <!-- Timeline Stages -->
+  <g transform="translate(56, 274)">
+    <!-- Stage 1 -->
+    <circle cx="14" cy="14" r="12" fill="rgba(16,185,129,0.2)" stroke="#10b981" stroke-width="2"/>
+    <text x="14" y="18" fill="#10b981" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="11" text-anchor="middle">&#10003;</text>
+    <line x1="14" y1="30" x2="14" y2="82" stroke="rgba(16,185,129,0.5)" stroke-width="2"/>
+    <text x="38" y="14" fill="#f8fafc" font-family="'Inter Tight', sans-serif" font-size="13" font-weight="600">Farm Harvest &amp; Lab Assay Verification</text>
+    <text x="38" y="32" fill="#64748b" font-family="'IBM Plex Mono', monospace" font-size="10">Origin: Farm DID (0x18c4...9b1a) &#8226; Moisture: 11.8% &#8226; Block #19,482,012</text>
+
+    <!-- Stage 2 -->
+    <circle cx="14" cy="94" r="12" fill="rgba(16,185,129,0.2)" stroke="#10b981" stroke-width="2"/>
+    <text x="14" y="98" fill="#10b981" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="11" text-anchor="middle">&#10003;</text>
+    <line x1="14" y1="110" x2="14" y2="162" stroke="rgba(99,102,241,0.5)" stroke-width="2"/>
+    <text x="38" y="94" fill="#f8fafc" font-family="'Inter Tight', sans-serif" font-size="13" font-weight="600">Rail Freight &amp; In-Transit IoT Telemetry</text>
+    <text x="38" y="112" fill="#64748b" font-family="'IBM Plex Mono', monospace" font-size="10">Freight Transit #842 &#8226; GPS Corridor Verified &#8226; Temp: 21&#176;C &#8226; Block #19,482,440</text>
+
+    <!-- Stage 3 -->
+    <circle cx="14" cy="174" r="12" fill="rgba(99,102,241,0.25)" stroke="#6366f1" stroke-width="2"/>
+    <circle cx="14" cy="174" r="4.5" fill="#6366f1"/>
+    <line x1="14" y1="190" x2="14" y2="242" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="38" y="174" fill="#f8fafc" font-family="'Inter Tight', sans-serif" font-size="13" font-weight="600">Central Silo Intake &amp; Quality Check</text>
+    <text x="38" y="192" fill="#818cf8" font-family="'IBM Plex Mono', monospace" font-size="10">Smart Contract: verifyIntake() &#8226; State: Awaiting Quality Stamp</text>
+
+    <!-- Stage 4 -->
+    <circle cx="14" cy="254" r="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+    <text x="38" y="254" fill="#94a3b8" font-family="'Inter Tight', sans-serif" font-size="13" font-weight="500">Retail Distribution &amp; Packaging Token</text>
+    <text x="38" y="272" fill="#475569" font-family="'IBM Plex Mono', monospace" font-size="10">Final Consumer QR Scan Destination &#8226; State: Queued</text>
+  </g>
+
+  <!-- Right Panel: Smart Contract & Merkle Proof (x: 612, y: 186, width: 352, height: 508) -->
+  <rect x="612" y="186" width="352" height="508" rx="14" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.07)"/>
+  <text x="632" y="222" fill="#ffffff" font-family="'Inter Tight', sans-serif" font-size="15" font-weight="700">Smart Contract State</text>
+  
+  <!-- Code Snippet Box -->
+  <rect x="632" y="240" width="312" height="110" rx="8" fill="rgba(8,10,16,0.9)" stroke="rgba(255,255,255,0.06)"/>
+  <text x="646" y="264" fill="#38bdf8" font-family="'IBM Plex Mono', monospace" font-size="9.5">contract BlockGrainProvenance {</text>
+  <text x="658" y="282" fill="#94a3b8" font-family="'IBM Plex Mono', monospace" font-size="9">  function verifyBatch(bytes32 _root) {</text>
+  <text x="670" y="300" fill="#a5b4fc" font-family="'IBM Plex Mono', monospace" font-size="9">    require(batches[_root].isValid);</text>
+  <text x="670" y="318" fill="#34d399" font-family="'IBM Plex Mono', monospace" font-size="9">    emit ProvenanceAffirmed(_root);</text>
+  <text x="646" y="336" fill="#38bdf8" font-family="'IBM Plex Mono', monospace" font-size="9.5">  }</text>
+
+  <!-- Cryptographic Hash Verification Box -->
+  <rect x="632" y="364" width="312" height="308" rx="10" fill="rgba(99,102,241,0.06)" stroke="rgba(99,102,241,0.2)"/>
+  <text x="650" y="394" fill="#a5b4fc" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="600">MERKLE ROOT HASH</text>
+  <text x="650" y="416" fill="#e2e8f0" font-family="'IBM Plex Mono', monospace" font-size="9.5">0x89f2a74c6d31bb98e54109cf81e2b604a</text>
+
+  <line x1="650" y1="434" x2="924" y2="434" stroke="rgba(255,255,255,0.08)"/>
+
+  <text x="650" y="460" fill="#94a3b8" font-family="'Inter Tight', sans-serif" font-size="11">STATE PROOF CONFIRMATION</text>
+  <rect x="650" y="472" width="276" height="28" rx="6" fill="rgba(16,185,129,0.15)" stroke="rgba(16,185,129,0.3)"/>
+  <text x="660" y="490" fill="#34d399" font-family="'IBM Plex Mono', monospace" font-size="9.5">&#8226; Zero-Knowledge Trace: PASSED</text>
+
+  <text x="650" y="528" fill="#94a3b8" font-family="'Inter Tight', sans-serif" font-size="11">IMMUTABILITY VERDICT</text>
+  <text x="650" y="550" fill="#38bdf8" font-family="'Inter Tight', sans-serif" font-size="13" font-weight="700">100% On-Chain Verified</text>
+  <text x="650" y="570" fill="#64748b" font-family="'IBM Plex Mono', monospace" font-size="9.5">Timestamp: 2026-11-05T19:42Z</text>
+
+  <!-- Gas & Epoch Pill -->
+  <rect x="650" y="594" width="276" height="34" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+  <text x="660" y="615" fill="#a5b4fc" font-family="'IBM Plex Mono', monospace" font-size="9">GAS: 21,000 | FINALITY: 100%</text>
+</svg>
